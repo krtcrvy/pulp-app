@@ -23,13 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-
-        if ($user->hasRole('admin')) {
+        if (Auth::user()->hasRole('admin')) {
             return redirect()->route('admin.dasboard');
-        } elseif ($user->hasRole('doctor')) {
+        } elseif (Auth::user()->hasRole('doctor')) {
             return redirect()->route('doctor.dasboard');
-        } elseif ($user->hasRole('patient')) {
+        } elseif (Auth::user()->hasRole('patient')) {
             return redirect()->route('patient.dasboard');
         } else {
             abort(403, 'Unauthorized action.');

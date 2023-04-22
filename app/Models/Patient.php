@@ -15,4 +15,24 @@ class Patient extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getFormattedGenderAttribute()
+    {
+        return ucwords($this->gender);
+    }
+
+    public function getRoleAttribute()
+    {
+        return ucwords($this->user->getRoleNames()->first());
+    }
+
+    public function getFormattedBirthdayAttribute()
+    {
+        return date('F d, Y', strtotime($this->birthday));
+    }
 }

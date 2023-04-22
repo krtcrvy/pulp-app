@@ -13,7 +13,7 @@
     <link rel="manifest" href="{{ asset('images/favicon_io/site.webmanifest') }}">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body class="sb-nav-fixed">
