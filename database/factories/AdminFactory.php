@@ -17,7 +17,7 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 2,
+            'user_id' => 1,
             'first_name' => 'Kurt Carvey',
             'last_name' => 'Cadenas',
             'email' => 'kurtcarveycadenas2001@gmail.com',

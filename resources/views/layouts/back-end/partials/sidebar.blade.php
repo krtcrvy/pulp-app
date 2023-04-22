@@ -10,21 +10,28 @@
                     Dashboard
                 </a>
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers"
-                    aria-expanded="false" aria-controls="collapseUsers">
-                    <div class="sb-nav-link-icon"><i class="bi bi-people-fill fs-5"></i></div>
-                    Users
-                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
-                </a>
-                <div class="collapse" id="collapseUsers" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ route('admin.patients.index') }}">Patients</a>
-                        <a class="nav-link" href="{{ route('admin.doctors.index') }}">Doctors</a>
-                        <a class="nav-link" href="#">Admins</a>
-                    </nav>
-                </div>
-
+                @if (Auth::user()->hasRole('admin'))
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
+                        <div class="sb-nav-link-icon"><i class="bi bi-people-fill fs-5"></i></div>
+                        Users
+                        <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseUsers" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('admin.patients.index') }}">Patients</a>
+                            <a class="nav-link" href="{{ route('admin.doctors.index') }}">Doctors</a>
+                            <a class="nav-link" href="#">Admins</a>
+                        </nav>
+                    </div>
+                @elseif (Auth::user()->hasRole('doctor'))
+                    <a class="nav-link" href="{{ route('doctor.schedules.index') }}">
+                        <div class="sb-nav-link-icon"><i class="bi bi-calendar2-week-fill fs-5"></i></div>
+                        Schedule
+                    </a>
+                @elseif(Auth::user()->hasRole('patient'))
+                @endif
             </div>
         </div>
         <div class="sb-sidenav-footer">

@@ -15,4 +15,19 @@ class Schedule extends Model
     {
         return $this->belongsTo(Doctor::class);
     }
+
+    public function getFormattedDateAttribute()
+    {
+        return date('F d, Y', strtotime($this->date));
+    }
+
+    public function getFormattedStartTimeAttribute()
+    {
+        return date("g:i A", strtotime($this->start_time));
+    }
+
+    public function getFormattedEndTimeAttribute()
+    {
+        return date("g:i A", strtotime($this->end_time));
+    }
 }
