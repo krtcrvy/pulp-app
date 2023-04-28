@@ -66,15 +66,33 @@ class ScheduleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+
+        return view('doctor.schedule.edit', compact('schedule'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Schedule $schedule, Request $request)
     {
-        //
+        $validatedData = request()->validate([
+            'date' => 'required|date',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+
+        if ($request->input('date') == $schedule->date && $request->input('id') == $schedule->id) {
+            $schedule->update($validatedData);
+
+            if ($schedule->wasChanged()) {
+                return redirect()->route('doctor.schedules.index')->with('success', 'Schedule updated successfully.');
+            } else {
+                return back()->with('info', 'Nothing has changed.');
+            }
+        } else {
+            return back()->with('danger', 'The date has already been taken.');
+        }
     }
 
     /**

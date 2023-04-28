@@ -21,9 +21,14 @@ class Doctor extends Model
         return $this->hasMany(Schedule::class);
     }
 
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
     public function getFullNameAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return 'Dr. ' . $this->first_name . ' ' . $this->last_name;
     }
 
     public function getFormattedGenderAttribute()

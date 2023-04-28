@@ -19,7 +19,8 @@
         <div class="col">
             <div class="card mb-4">
                 <div class="card-body shadow">
-                    <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST" id="editDoctorForm">
+                    <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST" id="editDoctorForm"
+                        onkeydown="return (event.keyCode!=13);">
                         @csrf
                         @method('PUT')
 

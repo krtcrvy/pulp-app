@@ -31,6 +31,10 @@
                         Schedule
                     </a>
                 @elseif(Auth::user()->hasRole('patient'))
+                    <a class="nav-link" href="{{ route('patient.appointments.index') }}">
+                        <div class="sb-nav-link-icon"><i class="bi bi-calendar2-date-fill fs-5"></i></div>
+                        Appointment
+                    </a>
                 @endif
             </div>
         </div>

@@ -19,7 +19,8 @@
         <div class="col">
             <div class="card mb-4">
                 <div class="card-body shadow">
-                    <form action="{{ route('admin.doctors.store') }}" method="POST" id="addDoctorForm">
+                    <form action="{{ route('admin.doctors.store') }}" method="POST" id="addDoctorForm"
+                        onkeydown="return (event.keyCode!=13);">
                         @csrf
 
                         <div class="row">
