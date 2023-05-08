@@ -80,6 +80,7 @@ class ScheduleController extends Controller
             'date' => 'required|date',
             'start_time' => 'required',
             'end_time' => 'required',
+            'status' => 'required'
         ]);
 
         if ($request->input('date') == $schedule->date && $request->input('id') == $schedule->id) {

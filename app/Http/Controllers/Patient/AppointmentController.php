@@ -8,6 +8,9 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use App\Mail\AppointmentConfirmation;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AppointmentController extends Controller
 {
@@ -52,7 +55,7 @@ class AppointmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(Request $request)
     {
         $validatedData = request()->validate([
             'schedule_id' => 'required|exists:schedules,id',
@@ -63,7 +66,7 @@ class AppointmentController extends Controller
             'notes' => 'nullable|max:1000',
         ]);
 
-        Appointment::create([
+        $appointment = Appointment::create([
             'schedule_id' => $validatedData['schedule_id'],
             'doctor_id' => $validatedData['doctor_id'],
             'patient_id' => auth()->user()->patient->id,
@@ -74,7 +77,11 @@ class AppointmentController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('patient.appointments.index')->with('success', 'Appointment created successfully.');
+        Mail::to(Auth::user()->email)->send(new AppointmentConfirmation($appointment));
+
+        return redirect()
+            ->route('patient.appointments.index')
+            ->with('success', 'Please check your email to confirm the booked appointment.');
     }
 
     /**
@@ -82,7 +89,10 @@ class AppointmentController extends Controller
      */
     public function show(string $id)
     {
-        $appointment = Appointment::with('patient', 'doctor', 'schedule')->findOrFail($id);
+        $appointment = Appointment::with('patient', 'doctor', 'schedule')
+            ->where('patient_id', Auth::user()->patient->id)
+            ->findOrFail($id);
+
         return view('patient.appointment.show', compact('appointment'));
     }
 
@@ -108,5 +118,28 @@ class AppointmentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function confirm($token)
+    {
+        $appointment = Appointment::where('confirmation_token', $token)->first();
+
+        if (!$appointment) {
+            return redirect()
+                ->route('patient.appointments.index')
+                ->with('danger', 'Invalid confirmation link.');
+        } elseif (!$appointment->patient_id == Auth::user()->patient->id) {
+            return redirect()
+                ->route('patient.appointments.index')
+                ->with('danger', 'Invalid confirmation link.');
+        }
+
+        $appointment->status = 'confirmed';
+        $appointment->confirmation_token = null;
+        $appointment->save();
+
+        return redirect()
+            ->route('patient.appointments.index')
+            ->with('success', 'Appointment confirmed successfully.');
     }
 }

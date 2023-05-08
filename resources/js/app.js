@@ -57,5 +57,6 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#dataTables").DataTable({
         columnDefs: [{ className: "dt-center", targets: "_all" }],
+        order: [[0, "desc"]],
     });
 });

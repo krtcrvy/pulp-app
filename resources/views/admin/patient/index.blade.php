@@ -41,6 +41,8 @@
                                         <td>{{ $patient->id }}</td>
                                         <td>
                                             @if ($patient->user->avatar)
+                                                <img src="{{ asset($patient->user->avatar_formatted) }}" alt="avatar"
+                                                    class="table-img img-fluid rounded-circle">
                                             @else
                                                 <img src="{{ asset('images/avatar.jpg') }}" alt="avatar"
                                                     class="table-img img-fluid rounded-circle">
@@ -56,7 +58,7 @@
                                                     href="{{ route('admin.patients.show', $patient->id) }}"
                                                     role="button"><i class="bi bi-info-circle-fill"></i></a>
 
-                                                <a class="btn btn-success btn-sm"
+                                                <a class="btn btn-secondary btn-sm"
                                                     href="{{ route('admin.patients.edit', $patient->id) }}"
                                                     role="button"><i class="bi bi-pen-fill"></i></a>
 

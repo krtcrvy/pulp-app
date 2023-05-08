@@ -61,4 +61,24 @@ class User extends Authenticatable
     {
         return $this->hasOne(Patient::class);
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getFormattedGenderAttribute()
+    {
+        return ucwords($this->gender);
+    }
+
+    public function getRoleAttribute()
+    {
+        return ucwords($this->getRoleNames()->first());
+    }
+
+    public function getAvatarFormattedAttribute()
+    {
+        return 'storage/' . $this->avatar;
+    }
 }

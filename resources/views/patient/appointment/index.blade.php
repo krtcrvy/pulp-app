@@ -5,6 +5,20 @@
 @section('content')
     <h1 class="my-4 text-primary">My Appointments</h1>
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif (session('danger'))
+        <div class="alert alert-danger">
+            {{ session('danger') }}
+        </div>
+    @elseif(session('info'))
+        <div class="alert alert-info">
+            {{ session('info') }}
+        </div>
+    @endif
+
     <a class="btn btn-primary mb-4" href="{{ route('patient.appointments.create') }}" role="button"><i
             class="bi bi-bookmark-plus-fill me-1"></i>Book New
         Appointment</a>
@@ -36,6 +50,15 @@
                                         <td>
                                             @if ($appointment->status == 'pending')
                                                 <span class="badge rounded-pill text-bg-secondary">
+                                                    {{ $appointment->formatted_status }}</span>
+                                            @elseif($appointment->status == 'confirmed')
+                                                <span class="badge rounded-pill text-bg-primary">
+                                                    {{ $appointment->formatted_status }}</span>
+                                            @elseif($appointment->status == 'completed')
+                                                <span class="badge rounded-pill text-bg-success">
+                                                    {{ $appointment->formatted_status }}</span>
+                                            @elseif($appointment->status == 'cancelled')
+                                                <span class="badge rounded-pill text-bg-danger">
                                                     {{ $appointment->formatted_status }}</span>
                                             @endif
                                         </td>

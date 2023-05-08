@@ -25,6 +25,19 @@
                 </p>
             </div>
             <div class="col-md-10 mx-auto col-lg-5">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @elseif (session('danger'))
+                    <div class="alert alert-danger">
+                        {{ session('danger') }}
+                    </div>
+                @elseif(session('info'))
+                    <div class="alert alert-info">
+                        {{ session('info') }}
+                    </div>
+                @endif
                 <form class="p-4 p-md-5 border shadow rounded-3 bg-light" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-3">

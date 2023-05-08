@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('type');
             $table->text('notes')->nullable();
             $table->string('status')->default('pending');
+            $table->string('confirmation_token')->nullable();
             $table->timestamps();
         });
     }

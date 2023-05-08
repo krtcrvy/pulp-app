@@ -14,7 +14,7 @@
                     <div class="card-body shadow">
                         <div class="d-flex justify-content-center">
                             @if ($schedule->doctor->user->avatar)
-                                <img src="{{ $schedule->doctor->user->avatar }}" alt="avatar"
+                                <img src="{{ asset($schedule->doctor->user->avatar_formatted) }}" alt="avatar"
                                     class="img-fluid rounded-circle avatar-md mb-4">
                             @else
                                 <img src="{{ asset('images/avatar.jpg') }}" alt="avatar"

@@ -27,13 +27,14 @@
                         onkeydown="return (event.keyCode!=13);">
                         @csrf
                         @method('PUT')
+
                         <div class="row">
                             <div class="col">
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Schedule Date</label>
                                     <input type="date" name="date"
                                         class="form-control @error('date') is-invalid @enderror" id="date"
-                                        value="{{ $schedule->date }}">
+                                        value="{{ $schedule->date }}" min="{{ date('Y-m-d', strtotime(now())) }}">
 
                                     @error('date')
                                         <span class="invalid-feedback" role="alert">
@@ -68,6 +69,20 @@
                                     @enderror
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="status">Status</label>
+                                    <select class="form-select" aria-label="Default select example" id="status"
+                                        form="editScheduleForm" name="status">
+                                        <option selected disabled>Select schedule status</option>
+                                        <option value="active" {{ $schedule->status == 'active' ? 'selected' : '' }}>
+                                            Active
+                                        </option>
+                                        <option value="inactive" {{ $schedule->status == 'inactive' ? 'selected' : '' }}>
+                                            Inactive
+                                        </option>
+                                    </select>
+                                </div>
+
                                 <input type="hidden" name="id" value="{{ $schedule->id }}">
                             </div>
                         </div>
@@ -95,7 +110,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to edit schedule?</p>
+                    <p>Are you sure you want to edit Schedule?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Appointment extends Model
 {
@@ -26,6 +27,15 @@ class Appointment extends Model
         return $this->belongsTo(Schedule::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($appointment) {
+            $appointment->confirmation_token = Str::random(40);
+        });
+    }
+
     public function getFormattedTimeAttribute()
     {
         return date("g:i A", strtotime($this->time));
@@ -34,5 +44,10 @@ class Appointment extends Model
     public function getFormattedStatusAttribute()
     {
         return ucwords($this->status);
+    }
+
+    public function getFormattedTypeAttribute()
+    {
+        return ucwords($this->type);
     }
 }

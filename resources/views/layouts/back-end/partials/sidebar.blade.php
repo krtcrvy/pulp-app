@@ -12,9 +12,27 @@
 
                 @if (Auth::user()->hasRole('admin'))
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#collapseAppointments" aria-expanded="false"
+                        aria-controls="collapseAppointments">
+                        <div class="sb-nav-link-icon"><i class="bi bi-calendar2-week-fill fs-5"></i></div>
+                        Appointment
+                        <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseAppointments" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('admin.appointments.index') }}">Ongoing Appointments</a>
+                            <a class="nav-link" href="{{ route('admin.appointments.completed') }}">Completed
+                                Appointments</a>
+                            <a class="nav-link" href="{{ route('admin.appointments.cancelled') }}">Cancelled
+                                Appointments</a>
+                        </nav>
+                    </div>
+
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
                         <div class="sb-nav-link-icon"><i class="bi bi-people-fill fs-5"></i></div>
-                        Users
+                        User
                         <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
                     </a>
                     <div class="collapse" id="collapseUsers" aria-labelledby="headingOne"
@@ -22,10 +40,15 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('admin.patients.index') }}">Patients</a>
                             <a class="nav-link" href="{{ route('admin.doctors.index') }}">Doctors</a>
-                            <a class="nav-link" href="#">Admins</a>
+                            <a class="nav-link" href="{{ route('admin.admins.index') }}">Admins</a>
                         </nav>
                     </div>
                 @elseif (Auth::user()->hasRole('doctor'))
+                    <a class="nav-link" href="{{ route('doctor.appointments.index') }}">
+                        <div class="sb-nav-link-icon"><i class="bi bi-calendar2-date-fill fs-5"></i></div>
+                        Appointment
+                    </a>
+
                     <a class="nav-link" href="{{ route('doctor.schedules.index') }}">
                         <div class="sb-nav-link-icon"><i class="bi bi-calendar2-week-fill fs-5"></i></div>
                         Schedule

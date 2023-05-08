@@ -93,7 +93,8 @@
                                 <div class="mb-3">
                                     <label for="birthday" class="form-label">{{ __('Birthday') }}</label>
                                     <input type="date" class="form-control @error('birthday') is-invalid @enderror"
-                                        id="birthday" name="birthday" value="{{ $doctor->birthday }}">
+                                        id="birthday" name="birthday" value="{{ $doctor->birthday }}" min="1950-01-01"
+                                        max="2007-12-31">
 
                                     @error('birthday')
                                         <span class="invalid-feedback" role="alert">

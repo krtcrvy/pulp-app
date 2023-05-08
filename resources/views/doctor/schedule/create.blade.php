@@ -17,7 +17,8 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Schedule Date</label>
                                     <input type="date" name="date"
-                                        class="form-control @error('date') is-invalid @enderror" id="date">
+                                        class="form-control @error('date') is-invalid @enderror" id="date"
+                                        min="{{ date('Y-m-d', strtotime(now())) }}">
 
                                     @error('date')
                                         <span class="invalid-feedback" role="alert">
