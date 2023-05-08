@@ -6,7 +6,7 @@
     <h1 class="my-4 text-primary">Add Schedule</h1>
 
     <div class="row">
-        <div class="col">
+        <div class="col-md-8">
             <div class="card mb-4">
                 <div class="card-body shadow">
                     <form action="{{ route('doctor.schedules.store') }}" method="POST" id="addScheduleForm"
@@ -30,7 +30,8 @@
                                 <div class="mb-3">
                                     <label for="start_time" class="form-label">Start Time</label>
                                     <input type="time" name="start_time"
-                                        class="form-control @error('start_time') is-invalid @enderror" id="start_time">
+                                        class="form-control @error('start_time') is-invalid @enderror" id="start_time"
+                                        min="8:00" max="17:00">
 
                                     @error('start_time')
                                         <span class="invalid-feedback" role="alert">
@@ -42,7 +43,8 @@
                                 <div class="mb-3">
                                     <label for="end_time" class="form-label">End Time</label>
                                     <input type="time" name="end_time"
-                                        class="form-control @error('end_time') is-invalid @enderror" id="end_time">
+                                        class="form-control @error('end_time') is-invalid @enderror" id="end_time"
+                                        min="8:00" max="17:00">
 
                                     @error('end_time')
                                         <span class="invalid-feedback" role="alert">

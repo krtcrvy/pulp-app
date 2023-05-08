@@ -16,7 +16,7 @@
     @endif
 
     <div class="row">
-        <div class="col">
+        <div class="col-md-8">
             <div class="card mb-4">
                 <div class="card-body shadow">
                     <form action="{{ route('admin.doctors.store') }}" method="POST" id="addDoctorForm"

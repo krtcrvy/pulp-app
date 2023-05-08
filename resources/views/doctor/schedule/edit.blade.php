@@ -20,7 +20,7 @@
     @endif
 
     <div class="row">
-        <div class="col">
+        <div class="col-md-8">
             <div class="card mb-4">
                 <div class="card-body shadow">
                     <form action="{{ route('doctor.schedules.update', $schedule->id) }}" method="POST" id="editScheduleForm"
@@ -47,7 +47,7 @@
                                     <label for="start_time" class="form-label">Start Time</label>
                                     <input type="time" name="start_time"
                                         class="form-control @error('start_time') is-invalid @enderror" id="start_time"
-                                        value="{{ $schedule->start_time }}">
+                                        value="{{ $schedule->start_time }}" min="8:00" max="17:00">
 
                                     @error('start_time')
                                         <span class="invalid-feedback" role="alert">
@@ -60,7 +60,7 @@
                                     <label for="end_time" class="form-label">End Time</label>
                                     <input type="time" name="end_time"
                                         class="form-control @error('end_time') is-invalid @enderror" id="end_time"
-                                        value="{{ $schedule->end_time }}">
+                                        value="{{ $schedule->end_time }}" min="8:00" max="17:00">
 
                                     @error('end_time')
                                         <span class="invalid-feedback" role="alert">

@@ -77,14 +77,20 @@ class ScheduleController extends Controller
     public function update(Schedule $schedule, Request $request)
     {
         $validatedData = request()->validate([
-            'date' => 'required|date',
+            'date' => 'required|date|unique:schedules,date,' . $schedule->id,
             'start_time' => 'required',
             'end_time' => 'required',
             'status' => 'required'
         ]);
 
-        if ($request->input('date') == $schedule->date && $request->input('id') == $schedule->id) {
-            $schedule->update($validatedData);
+        if ($request->input('id') == $schedule->id) {
+            $schedule->update([
+                'date' => $validatedData['date'],
+                'day' => Carbon::parse($validatedData['date'])->format('l'),
+                'start_time' => $validatedData['start_time'],
+                'end_time' => $validatedData['end_time'],
+                'status' => $validatedData['status'],
+            ]);
 
             if ($schedule->wasChanged()) {
                 return redirect()->route('doctor.schedules.index')->with('success', 'Schedule updated successfully.');

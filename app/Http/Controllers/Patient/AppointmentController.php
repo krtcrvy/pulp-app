@@ -33,7 +33,9 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        $schedules = Schedule::where('status', 'active')->get();
+        $schedules = Schedule::where('status', 'active')
+            ->orderBy('date', 'asc')
+            ->paginate(8);
         return view('patient.appointment.create', compact('schedules'));
     }
 

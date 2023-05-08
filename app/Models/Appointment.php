@@ -27,6 +27,11 @@ class Appointment extends Model
         return $this->belongsTo(Schedule::class);
     }
 
+    public function treatments()
+    {
+        return $this->hasMany(Treatment::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

@@ -15,7 +15,7 @@
                         data-bs-target="#collapseAppointments" aria-expanded="false"
                         aria-controls="collapseAppointments">
                         <div class="sb-nav-link-icon"><i class="bi bi-calendar2-week-fill fs-5"></i></div>
-                        Appointment
+                        Appointments
                         <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
                     </a>
                     <div class="collapse" id="collapseAppointments" aria-labelledby="headingOne"
@@ -32,7 +32,7 @@
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
                         <div class="sb-nav-link-icon"><i class="bi bi-people-fill fs-5"></i></div>
-                        User
+                        Users
                         <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
                     </a>
                     <div class="collapse" id="collapseUsers" aria-labelledby="headingOne"
@@ -46,12 +46,17 @@
                 @elseif (Auth::user()->hasRole('doctor'))
                     <a class="nav-link" href="{{ route('doctor.appointments.index') }}">
                         <div class="sb-nav-link-icon"><i class="bi bi-calendar2-date-fill fs-5"></i></div>
-                        Appointment
+                        Appointments
                     </a>
 
                     <a class="nav-link" href="{{ route('doctor.schedules.index') }}">
                         <div class="sb-nav-link-icon"><i class="bi bi-calendar2-week-fill fs-5"></i></div>
-                        Schedule
+                        Schedules
+                    </a>
+
+                    <a class="nav-link" href="{{ route('doctor.medical-history.index') }}">
+                        <div class="sb-nav-link-icon"><i class="bi bi-clipboard2-pulse-fill fs-5"></i></div>
+                        Medical Records
                     </a>
                 @elseif(Auth::user()->hasRole('patient'))
                     <a class="nav-link" href="{{ route('patient.appointments.index') }}">

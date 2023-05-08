@@ -4,6 +4,7 @@ use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController
 use App\Http\Controllers\Doctor\ScheduleController;
 use App\Http\Controllers\Doctor\AppointmentController;
 use App\Http\Controllers\Doctor\UserController;
+use App\Http\Controllers\Doctor\MedicalHistoryController;
 
 Route::prefix('doctor')->middleware(['auth', 'role:doctor'])->group(function () {
     Route::get('/', [DoctorDashboardController::class, 'index'])->name('doctor.dasboard');
@@ -23,4 +24,12 @@ Route::prefix('doctor')->middleware(['auth', 'role:doctor'])->group(function () 
 
     Route::get('/appointments', [AppointmentController::class, 'index'])->name('doctor.appointments.index');
     Route::get('/appointments/{appointment}', [AppointmentController::class, 'show'])->name('doctor.appointments.show');
+
+    Route::get('/patients/medical-histories', [MedicalHistoryController::class, 'index'])->name('doctor.medical-history.index');
+    Route::get('/patients/{patient}/medical-histories/create', [MedicalHistoryController::class, 'create'])->name('doctor.medical-history.create');
+    Route::post('/patients/{patient}/medical-histories', [MedicalHistoryController::class, 'store'])->name('doctor.medical-history.store');
+    Route::get('/patients/{patient}/medical-histories/{medicalHistory}', [MedicalHistoryController::class, 'show'])->name('doctor.medical-history.show');
+    Route::get('/patients/{patient}/medical-histories/{medicalHistory}/edit', [MedicalHistoryController::class, 'edit'])->name('doctor.medical-history.edit');
+    Route::put('/patients/{patient}/medical-history/{medicalHistory}', [MedicalHistoryController::class, 'update'])
+        ->name('doctor.medical-history.update');
 });

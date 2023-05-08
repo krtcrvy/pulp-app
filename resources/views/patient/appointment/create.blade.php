@@ -49,5 +49,8 @@
                 </div>
             </div>
         @endforeach
+        <div class="col-12">
+            {{ $schedules->links('pagination::bootstrap-5') }}
+        </div>
     </div>
 @endsection
