@@ -27,9 +27,9 @@ class Kernel extends ConsoleKernel
 
         $schedule
             ->call(function () {
-                $tomorrow = Carbon::now()->addDay();
-                $appointments = Appointment::whereHas('schedule', function ($query) use ($tomorrow) {
-                    $query->whereDate('date', $tomorrow->toDateString());
+                $dayBefore = Carbon::now()->subDay();
+                $appointments = Appointment::whereHas('schedule', function ($query) use ($dayBefore) {
+                    $query->whereDate('date', $dayBefore->toDateString());
                 })->get();
 
                 foreach ($appointments as $appointment) {
