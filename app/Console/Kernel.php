@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
                     Mail::to($appointment->client->email)->send(new AppointmentReminder($appointment));
                 }
             })
-            ->dailyAt('09:00');
+            ->dailyAt('07:00');
     }
 
     /**
