@@ -21,9 +21,9 @@ class UserFactory extends Factory
         return [
             'first_name' => 'Kurt Carvey',
             'last_name' => 'Cadenas',
-            'username' => 'admin',
+            'username' => 'doctor1',
             'contact_number' => '09772880178',
-            'email' => 'kurtcarveycadenas2001@gmail.com',
+            'email' => 'kurtcarvey1401@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('1234567890'), // password
             'remember_token' => Str::random(10),

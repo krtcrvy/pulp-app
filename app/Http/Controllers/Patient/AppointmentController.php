@@ -31,11 +31,19 @@ class AppointmentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $schedules = Schedule::where('status', 'active')
-            ->orderBy('date', 'asc')
-            ->paginate(8);
+        if ($request->filled('search')) {
+            $schedules = Schedule::search($request->search)
+                ->where('status', 'active')
+                ->orderBy('date', 'asc')
+                ->paginate(8);
+        } else {
+            $schedules = Schedule::where('status', 'active')
+                ->orderBy('date', 'asc')
+                ->paginate(8);
+        }
+
         return view('patient.appointment.create', compact('schedules'));
     }
 

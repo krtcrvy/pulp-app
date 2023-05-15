@@ -7,6 +7,20 @@
 
     <a class="btn btn-primary mb-4" href="{{ route('patient.appointments.index') }}" role="button"><i
             class="bi bi-caret-left-fill me-1"></i>Back</a>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="GET">
+                <div class="input-group mb-4">
+                    <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control"
+                        placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="submit" id="button-addon2"><i
+                            class="bi bi-search me-1"></i>Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="row row-cols-4">
         @foreach ($schedules as $schedule)
             <div class="col">

@@ -2,7 +2,11 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
+use App\Models\Appointment;
+use App\Mail\AppointmentReminder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,9 +17,26 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->call(function () {
-            DB::table('schedules')->where('date', '<', now())->update(['status' => 'inactive']);
-        })->everyMinute();
+        $schedule
+            ->call(function () {
+                DB::table('schedules')
+                    ->where('date', '<', now())
+                    ->update(['status' => 'inactive']);
+            })
+            ->everyMinute();
+
+        $schedule
+            ->call(function () {
+                $tomorrow = Carbon::now()->addDay();
+                $appointments = Appointment::whereHas('schedule', function ($query) use ($tomorrow) {
+                    $query->whereDate('date', $tomorrow->toDateString());
+                })->get();
+
+                foreach ($appointments as $appointment) {
+                    Mail::to($appointment->client->email)->send(new AppointmentReminder($appointment));
+                }
+            })
+            ->dailyAt('09:00');
     }
 
     /**

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Schedule extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $guarded = [];
 
@@ -34,5 +35,12 @@ class Schedule extends Model
     public function getFormattedEndTimeAttribute()
     {
         return date("g:i A", strtotime($this->end_time));
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'day' => $this->day,
+        ];
     }
 }
